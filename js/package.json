@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "css-loader": "^3.0.0",
+    "js-yaml": ">=3.13.1",
     "rimraf": "^3.0.0",
     "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
@@ -37,6 +38,7 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^2.0",
+    "jquery": "^3.4.1",
     "lodash": "^4.17.15",
     "select2": "^4.0.10"
   },
