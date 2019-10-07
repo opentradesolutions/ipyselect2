@@ -13,4 +13,3 @@ jupyter nbextension install --py --symlink --sys-prefix ipyselect2
 jupyter nbextension enable --py --sys-prefix ipyselect2
 jupyter labextension install js
 ```
-git t
