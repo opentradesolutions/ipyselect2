@@ -22,8 +22,6 @@ log.set_verbosity(log.DEBUG)
 log.info('setup.py entered')
 log.info('$PATH=%s' % os.environ['PATH'])
 
-LONG_DESCRIPTION = 'A jupyter Widget for Select2'
-
 def js_prerelease(command, strict=False):
     """decorator for building minified js/css prior to another command"""
     class DecoratedCommand(command):
@@ -124,11 +122,14 @@ version_ns = {}
 with open(os.path.join(here, 'ipyselect2', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
+with open('README.rst', 'r') as f:
+  readme = f.read()
+
 setup_args = {
     'name': 'ipyselect2',
     'version': version_ns['__version__'],
     'description': 'A Tree Widget using jsTree',
-    'long_description': LONG_DESCRIPTION,
+    'long_description': readme,
     'include_package_data': True,
     'data_files': [
         ('share/jupyter/nbextensions/ipyselect2', [
