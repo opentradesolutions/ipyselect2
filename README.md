@@ -1,7 +1,7 @@
 ipyselect2
 =======
 
-A jupyter Widget using ![select2](https://select2.org/)
+A jupyter Widget using [select2](https://select2.org/)
 
 Installation
 ```bash
