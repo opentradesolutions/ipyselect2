@@ -1,0 +1,46 @@
+{
+  "name": "ipyselect2",
+  "version": "0.1.0",
+  "description": "A jupyter Widget using Select2",
+  "author": "OpenTrade Solutions",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opentradesolutions/ipyselect2.git"
+  },
+  "keywords": [
+    "jupyter",
+    "widgets",
+    "ipython",
+    "ipywidgets",
+    "jupyterlab-extension"
+  ],
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.css",
+    "dist/*.js"
+  ],
+  "scripts": {
+    "clean": "rimraf dist/",
+    "prepublish": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "rimraf": "^2.6.1",
+    "style-loader": "^0.18.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "url-loader": "^1.1.1",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {
+    "@jupyter-widgets/base": "^2.0",
+    "lodash": "^4.17.15",
+    "select2": "^4.0.10"
+  },
+  "jupyterlab": {
+    "extension": "lib/labplugin"
+  }
+}

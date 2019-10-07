@@ -1,0 +1,2 @@
+recursive-include ipyselect2/static *.*
+include ipyselect2.json
