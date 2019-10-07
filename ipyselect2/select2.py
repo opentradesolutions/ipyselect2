@@ -15,7 +15,6 @@ class Select2(DOMWidget):
 
     value = Unicode('').tag(sync=True)
     width = Unicode('').tag(sync=True)
-    height = Unicode('').tag(sync=True)
     placeholder = Unicode('').tag(sync=True)
     multiple = Unicode('').tag(sync=True)
     options = Tuple(trait=Unicode('')).tag(sync=True)

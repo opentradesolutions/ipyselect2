@@ -37,20 +37,16 @@ var Select2View = widgets.DOMWidgetView.extend({
     select.className = 'ipyselect2';
     this.fill_options();
     this.el.appendChild(select);
-    var placeholder = this.model.get('placeholder') || 'select...';
-    var width = this.model.get('width');
-    var height = this.model.get('height');
-    var params = { allowClear: true, placeholder: placeholder };
-    if (width) params.width = width;
-    if (height) params.height = height;
-    setTimeout(function() { $(select).select2(params); });
-    var value = this.model.get('value');
-    if (value) setTimeout(function() { $(select).val(value).trigger('change'); });
     this.model.on('change:options', this.options_changed, this);
     this.model.on('change:disabled', this.disabled_changed, this);
     this.model.on('change:value', this.value_changed, this);
-
     select.onchange = this.input_changed.bind(this);
+    this.value_changed();
+    var placeholder = this.model.get('placeholder') || 'select...';
+    var params = { allowClear: true, placeholder: placeholder };
+    var width = this.model.get('width');
+    if (width) params.width = width;
+    setTimeout(function() { $(select).select2(params); });
   },
 
   fill_options: function() {
