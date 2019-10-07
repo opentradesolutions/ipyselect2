@@ -1,6 +1,23 @@
 ipyselect2
 =======
 
+# Usage
+```python
+from ipyselect2 import Select2
+import ipywidgets as widgets
+
+s = Select2(options=['x', 'y'], width='200px')
+
+def test(change):
+  with output:
+    print(change)
+
+s.observe(test, 'value')
+output = widgets.Output()
+display(s, output)
+```
+
+# Installation
 A jupyter widget using [select2](https://select2.org/)
 
 
