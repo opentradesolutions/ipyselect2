@@ -16,6 +16,7 @@ var Select2Model = widgets.DOMWidgetModel.extend({
     options: [],
     disabled: false,
     value: '',
+    values: [],
     width: '',
     height: '',
     multiple: '',
@@ -30,21 +31,26 @@ var Select2Model = widgets.DOMWidgetModel.extend({
 
 var Select2View = widgets.DOMWidgetView.extend({
   render: function() {
-    this.el.className += ' jupyter-widgets widget-dropdown';
+    $(this.el).addClass('jupyter-widgets widget-dropdown');
+    var width = this.model.get('width');
+    if (width) $(this.el).css('width', width);
     var select = this.select = document.createElement('select');
     var multiple = this.model.get('multiple');
-    if (multiple) select.multiple = multiple;
+    if (multiple) {
+      select.multiple = multiple;
+      this.multiple = true;
+    }
     select.className = 'ipyselect2';
     this.fill_options();
     this.el.appendChild(select);
     this.model.on('change:options', this.options_changed, this);
     this.model.on('change:disabled', this.disabled_changed, this);
     this.model.on('change:value', this.value_changed, this);
+    this.model.on('change:values', this.value_changed, this);
     select.onchange = this.input_changed.bind(this);
     this.value_changed();
     var placeholder = this.model.get('placeholder') || 'select...';
     var params = { allowClear: true, placeholder: placeholder };
-    var width = this.model.get('width');
     if (width) params.width = width;
     setTimeout(function() { $(select).select2(params); });
   },
@@ -72,11 +78,11 @@ var Select2View = widgets.DOMWidgetView.extend({
   },
 
   value_changed: function() {
-    $(this.select).val(this.model.get('value')).trigger('change');
+    $(this.select).val(this.model.get(this.multiple ? 'values' : 'value')).trigger('change');
   },
 
   input_changed: function() {
-    this.model.set('value', $(this.select).val());
+    this.model.set(this.multiple ? 'values' : 'value', $(this.select).val());
     this.model.save_changes();
   },
 });

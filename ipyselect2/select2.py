@@ -14,6 +14,7 @@ class Select2(DOMWidget):
     _model_module_version = Unicode(__version__).tag(sync=True)
 
     value = Unicode('').tag(sync=True)
+    values = Tuple(trait=Unicode('')).tag(sync=True)
     width = Unicode('').tag(sync=True)
     placeholder = Unicode('').tag(sync=True)
     multiple = Unicode('').tag(sync=True)
