@@ -6,15 +6,23 @@ ipyselect2
 from ipyselect2 import Select2
 import ipywidgets as widgets
 
-s = Select2(options=['x', 'y'], width='200px')
-
-def test(change):
+s1 = Select2(options=['a', 'b'], width='200px')
+s2 = Select2(options=['x', 'y'], width='200px', multiple='multiple', lazy=True)
+s2.layout.height = '60px'
+def values_change(change):
   with output:
     print(change)
-
-s.observe(test, 'value')
+s1.observe(values_change, 'values')
+s2.observe(values_change, 'value')
 output = widgets.Output()
-display(s, output)
+tab = widgets.Tab()
+tab.children = [s1, s2]
+def tab_change(x):
+  if x['new']: s2.lazy = False
+tab.observe(tab_change, 'selected_index')
+tab.set_title(0, 'single select')
+tab.set_title(1, 'multiple select')
+display(tab, output)
 ```
 
 # Installation

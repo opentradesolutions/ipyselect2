@@ -1,6 +1,6 @@
 {
   "name": "ipyselect2",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A jupyter widget using Select2",
   "author": "OpenTrade Solutions",
   "main": "dist/index.js",

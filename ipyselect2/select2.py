@@ -20,3 +20,4 @@ class Select2(DOMWidget):
     multiple = Unicode('').tag(sync=True)
     options = Tuple(trait=Unicode('')).tag(sync=True)
     disabled = Bool(False).tag(sync=True)
+    lazy = Bool(False).tag(sync=True)

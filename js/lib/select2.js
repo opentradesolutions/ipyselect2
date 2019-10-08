@@ -15,6 +15,7 @@ var Select2Model = widgets.DOMWidgetModel.extend({
     _view_module: 'ipyselect2',
     options: [],
     disabled: false,
+    lazy: false,
     value: '',
     values: [],
     width: '',
@@ -47,12 +48,17 @@ var Select2View = widgets.DOMWidgetView.extend({
     this.model.on('change:disabled', this.disabled_changed, this);
     this.model.on('change:value', this.value_changed, this);
     this.model.on('change:values', this.value_changed, this);
+    this.model.on('change:lazy', this.lazy_changed, this);
     select.onchange = this.input_changed.bind(this);
     this.value_changed();
+    this.disabled_changed();
     var placeholder = this.model.get('placeholder') || 'select...';
     var params = { allowClear: true, placeholder: placeholder };
     if (width) params.width = width;
-    setTimeout(function() { $(select).select2(params); });
+    this.params = params;
+    // select2 has wrong layout on tab widget, lazy may help
+    this.lazy = this.model.get('lazy');
+    if (!this.lazy) setTimeout(function() { $(select).select2(params); });
   },
 
   fill_options: function() {
@@ -74,7 +80,14 @@ var Select2View = widgets.DOMWidgetView.extend({
   },
 
   disabled_changed: function() {
-    this.select.disabled = this.model.get('disabled');
+    $(this.select).prop('disabled', this.model.get('disabled'));
+  },
+
+  lazy_changed: function() {
+    if (this.lazy) {
+      this.lazy = false;
+      $(this.select).select2(this.params);
+    }
   },
 
   value_changed: function() {
