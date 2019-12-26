@@ -12,8 +12,8 @@ s2.layout.height = '60px'
 def values_change(change):
   with output:
     print(change)
-s1.observe(values_change, 'values')
-s2.observe(values_change, 'value')
+s1.observe(values_change, 'value')
+s2.observe(values_change, 'values')
 output = widgets.Output()
 tab = widgets.Tab()
 tab.children = [s1, s2]
