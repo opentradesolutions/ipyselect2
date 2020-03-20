@@ -1,4 +1,5 @@
 from __future__ import print_function
+from distutils import log
 from setuptools import setup, find_packages, Command
 from setuptools.command.sdist import sdist
 from setuptools.command.build_py import build_py
@@ -8,19 +9,19 @@ import os
 import sys
 import platform
 
+
 here = os.path.dirname(os.path.abspath(__file__))
 node_root = os.path.join(here, 'js')
 is_repo = os.path.exists(os.path.join(here, '.git'))
 
 npm_path = os.pathsep.join([
-    os.path.join(node_root, 'node_modules', '.bin'),
-                os.environ.get('PATH', os.defpath),
+    os.path.join(node_root, 'node_modules', '.bin'), os.environ.get('PATH', os.defpath),
 ])
 
-from distutils import log
 log.set_verbosity(log.DEBUG)
 log.info('setup.py entered')
 log.info('$PATH=%s' % os.environ['PATH'])
+
 
 def js_prerelease(command, strict=False):
     """decorator for building minified js/css prior to another command"""
@@ -48,6 +49,7 @@ def js_prerelease(command, strict=False):
             update_package_data(self.distribution)
     return DecoratedCommand
 
+
 def update_package_data(distribution):
     """update package_data to catch changes during setup"""
     build_py = distribution.get_command_obj('build_py')
@@ -58,11 +60,8 @@ def update_package_data(distribution):
 
 class NPM(Command):
     description = 'install package.json dependencies using npm'
-
     user_options = []
-
     node_modules = os.path.join(node_root, 'node_modules')
-
     targets = [
         os.path.join(here, 'ipyselect2', 'static', 'extension.js'),
         os.path.join(here, 'ipyselect2', 'static', 'index.js')
@@ -75,23 +74,20 @@ class NPM(Command):
         pass
 
     def get_npm_name(self):
-        npmName = 'npm';
+        npmName = 'npm'
         if platform.system() == 'Windows':
-            npmName = 'npm.cmd';
-
-        return npmName;
+            npmName = 'npm.cmd'
+        return npmName
 
     def has_npm(self):
-        npmName = self.get_npm_name();
+        npmName = self.get_npm_name()
         try:
             check_call([npmName, '--version'])
             return True
-        except:
+        except Exception:
             return False
 
     def should_run_npm_install(self):
-        package_json = os.path.join(node_root, 'package.json')
-        node_modules_exists = os.path.exists(self.node_modules)
         return self.has_npm()
 
     def run(self):
@@ -104,7 +100,7 @@ class NPM(Command):
 
         if self.should_run_npm_install():
             log.info("Installing build dependencies with npm.  This may take a while...")
-            npmName = self.get_npm_name();
+            npmName = self.get_npm_name()
             check_call([npmName, 'install'], cwd=node_root, stdout=sys.stdout, stderr=sys.stderr)
             os.utime(self.node_modules, None)
 
@@ -118,12 +114,12 @@ class NPM(Command):
         # update package data in case this created new files
         update_package_data(self.distribution)
 
+
 version_ns = {}
 with open(os.path.join(here, 'ipyselect2', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
-
-with open('README.rst', 'r') as f:
-  readme = f.read()
+with open('README.md', 'r') as f:
+    readme = f.read()
 
 setup_args = {
     'name': 'ipyselect2',
@@ -137,7 +133,7 @@ setup_args = {
             'ipyselect2/static/index.js',
             'ipyselect2/static/index.js.map',
         ],),
-        ('etc/jupyter/nbconfig/notebook.d' ,['ipyselect2.json'])
+        ('etc/jupyter/nbconfig/notebook.d', ['ipyselect2.json'])
     ],
     'install_requires': [
         'ipywidgets>=7.5.0,<8',
@@ -173,5 +169,4 @@ setup_args = {
         'Programming Language :: Python :: 3.5',
     ],
 }
-
 setup(**setup_args)
