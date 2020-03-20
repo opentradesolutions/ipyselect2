@@ -1,4 +1,4 @@
-from traitlets import Unicode, Tuple, Bool
+from traitlets import CUnicode, Unicode, Tuple, Bool
 from ipywidgets import register, DOMWidget
 from ._version import __version__
 
@@ -13,7 +13,7 @@ class Select2(DOMWidget):
     _view_module_version = Unicode(__version__).tag(sync=True)
     _model_module_version = Unicode(__version__).tag(sync=True)
 
-    value = Unicode('').tag(sync=True)
+    value = CUnicode(None).tag(sync=True)
     values = Tuple(trait=Unicode('')).tag(sync=True)
     width = Unicode('').tag(sync=True)
     placeholder = Unicode('').tag(sync=True)
