@@ -1,5 +1,5 @@
 from traitlets import CUnicode, Unicode, Tuple, Bool
-from ipywidgets import register, DOMWidget 
+from ipywidgets import register, DOMWidget
 from ._version import __version__
 
 
