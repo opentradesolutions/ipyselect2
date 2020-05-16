@@ -1,5 +1,5 @@
 ipyselect2
-=======
+==========
 
 # Usage
 ```python

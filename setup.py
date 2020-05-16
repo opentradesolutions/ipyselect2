@@ -118,7 +118,7 @@ class NPM(Command):
 version_ns = {}
 with open(os.path.join(here, 'ipyselect2', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
-with open('README.md', 'r') as f:
+with open('README.rst', 'r') as f:
     readme = f.read()
 
 setup_args = {
